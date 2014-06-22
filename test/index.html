@@ -14,6 +14,7 @@ body {
   background-color: rgb(8, 12, 6);
   font-family: 'Roboto Slab', serif;
   font-size: 1.25em;
+  padding-bottom: 70px;
 }
 div.jumbotron {
   background-color: rgb(189, 222, 165);
@@ -65,10 +66,31 @@ border-color: #26BC5C;
   <body onload="init();">
 
 <nav class="navbar navbar-inverse navbar-fixed-bottom" role="navigation">
-  <div class="container-fluid">
-    <a href="#">About</a> | <a href="#">Login</a>
+  <div class="navbar-inner">
+    <div class="container">
+      <!--<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>-->
+      <!--<a class="brand" href="#top">Resume for Sam Hart</a>-->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"> 
+        <ul class="nav navbar-nav">
+          <li><a href="/">Home</a></li>
+          <li><a href="/about">About</a></li>
+          <li><a href="http://criswell.bitbucket.org/">Resume</a></li>
+          <li><a href="#">Admin</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="#top"><small>Top</small></a></li>
+          <li><a href="#bottom"><small>Bottom</small></a></li>
+        </ul>
+        </div>
+    </div>
   </div>
 </nav>
+<a id="top"></a>
 <center>
   <canvas id="snhCanvas" height="250"> <!-- width="1140" height="250">-->
 <div class="container">
@@ -81,9 +103,9 @@ border-color: #26BC5C;
     <div class='container'>
       <div class='well' id='mainWell'>
 
-        <div class="pull-right">
+        <!--<div class="pull-right">
           <a href="/login" class='btn btn-info'>Login</a>
-        </div>
+        </div>-->
 <a href="/node/2"><h2>Risus vitae. (1)</h2></a>
 <h3>Sam Hart</h3>
 <!-- Debugging information:
@@ -124,5 +146,6 @@ border-color: #26BC5C;
       
       </p>
     </div>
+    <a id="bottom"></a>
   </body>
 </html>

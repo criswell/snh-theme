@@ -1,0 +1,68 @@
+{% from "macros.html" import nomacro_placeholder, nomacro_flipper,
+nomacro_tagdisplay, nomacro_checkbox %}
+<form action="" method=post>
+  <div class="form-group">
+
+    <!-- TITLE -->
+    <label for="title">Page Title <small>(by {{ current_user.fullname }})</small></label>
+    <input type="text" class="form-control" name="title"
+      {{ nomacro_placeholder(entry, 'title', 'Enter title')}}>
+
+    <!-- GROUP -->
+    <label for='group'>Group Ownership</label>
+    <select class="form-control" name="group">
+      {% for g in groups %}
+        <option>{{ g.name }}</option>
+      {% endfor %}
+    </select>
+
+    <!-- URL -->
+    {% call nomacro_flipper('url', '<label for="url">Custom URL</label>', entry.url) %}
+    <input type="text" class="form-control" name="url"
+      {{ nomacro_placeholder(entry, 'url', '') }}>
+    {% endcall %}
+
+    <!-- TAGS -->
+    {% call nomacro_flipper('tags', '<label for="tags">Tags</label>', tags[0]) %}
+    <input type="text" class="form-control" name="tags"
+      value="{{ nomacro_tagdisplay(tags) }}">
+    {% endcall %}
+
+    <!-- STATIC -->
+    <label>
+      <input type="checkbox" name="static"
+      value='True' {{ nomacro_checkbox(entry, 'static', 'no')}}>Static
+    </label>
+
+    <!-- TEXTAREA -->
+    <textarea class="form-control" rows="15" name="entry"
+        >{% if entry is defined
+        %}{{ entry.entry|safe }}{% endif %}</textarea>
+
+    <!-- SUBMIT -->
+    <label>
+      <input type="checkbox" name="html"
+      value="True" {{ nomacro_checkbox(entry, 'html', 'no')}}>Post is HTML
+    </label>
+    <div class="pull-right">
+      <label for='weight' class="control-label">Weight</label>
+      <select class="form-control" name="weight">
+        {% for g in range(-15, 15) %}
+        <option
+        {% if entry != None -%}
+        {% if g == entry.weight -%}
+        selected="selected"
+        {%- endif %}
+        {% else -%}
+        {% if g == 0 -%}
+        selected="selected"
+        {%- endif %}
+        {%- endif %}
+        >{{ g }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <input type='submit' name='submit' value='{{ submit_button }}'>
+    <input type='submit' name='preview' value='{{ preview_button }}'>
+  </div>
+</form>

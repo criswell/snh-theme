@@ -1,0 +1,65 @@
+{% macro nomacro_entryURL(entry) -%}
+  {% if entry.url is not none -%}
+    /{{ entry.url }}
+  {%- else -%}
+    /node/{{ entry.id }}
+ {%- endif %}
+{%- endmacro %}
+
+{% macro nomacro_tagURL(tag) -%}
+  /tag/{{tag.id}}
+{%- endmacro %}
+
+{% macro nomacro_placeholder(entry, attr, default) -%}
+  {% if entry is defined -%}
+    {% if entry is none -%}
+      placeholder="{{ default }}"
+    {%- elif entry[attr] is none -%}
+      placeholder="{{ default }}"
+    {%- else -%}
+      value="{{ entry[attr] }}"
+    {%- endif %}
+  {%- else -%}
+    placeholder="{{ default }}"
+  {%- endif %}
+{%- endmacro %}
+
+{% macro nomacro_flipper(flipper_id, text, obj) -%}
+<div class="accordian" id="{{ flipper_id }}">
+    <div class="accordian-group">
+      <div class="accordian-heading">
+        <a class="accordian-toggle" data-toggle="collapse"
+        data-present="#{{ flipper_id }}"
+        href="#{{ flipper_id}}One">{{ text|safe }}</a>
+      </div>
+      <div id="{{ flipper_id}}One"
+        {% if obj is defined -%}
+          class="accordian-body collapse in"
+        {%- else -%}
+          class="accordian-body collapse"
+        {%- endif %}
+        >
+        <div class="accordian-inner">
+          {{ caller() }}
+        </div>
+      </div>
+    </div>
+</div>
+{%- endmacro %}
+
+{% macro nomacro_tagdisplay(tags) -%}
+  {% if tags is defined -%}
+    {% for tm in tags -%}
+      {{ tm }},
+    {%- endfor %}
+  {%- endif %}
+{%- endmacro %}
+
+{% macro nomacro_checkbox(entry, attr, default) -%}
+  {% if entry is defined -%}
+    {% if entry[attr] -%}
+      checked
+    {%- endif %}
+  {%- endif %}
+{%- endmacro %}
+

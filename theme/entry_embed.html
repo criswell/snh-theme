@@ -1,0 +1,41 @@
+{% from "macros.html" import nomacro_entryURL %}
+<a href="{{ nomacro_entryURL(entry) }}"><h2>{{ entry.title }}</h2></a>
+<h3>{{ entry.author.fullname }}</h3>
+<!-- Debugging information:
+     User "{{ entry.author.name }}"
+     Entry Owner Group "{{ entry.group.name }}"
+     User Primary Group "{{ entry.author.primary_group.name }}"
+     Entry ID "{{ entry.id }}"
+  -->
+<i>{{ entry.date }}</i><br />
+{% if is_edit is not defined or not is_edit -%}
+  <ul class="list-inline">
+      {% if entry is editable -%}
+      <li><a href="/edit/{{ entry.id }}">[Edit]</a></li>
+      {%- endif -%}
+      {%- if entry is possible_parent -%}
+      {%- if entry.parent_id is not none -%}
+      <li><a href="/new?parent={{ entry.parent_id }}">[Add Child]</a></li>
+      {%- else -%}
+      <li><a href="/new?parent={{ entry.id }}">[Add Child]</a></li>
+      {%- endif -%}
+      {%- endif -%}
+      {%- if entry is deletable -%}
+      <li><a href="/delete/{{ entry.id }}">[Delete]</a></li>
+      {%- endif %}
+  </ul>
+{%- endif %}
+{% if editors is not none %}
+<ul class="list-inline">
+  <li class='small'><b><i>Editors</i></b></li>
+  {% for i in editors %}
+    <li class='small'><i>{{ i.user.fullname }}</i></li>
+  {% endfor %}
+</ul>
+{% endif %}
+<br />
+{% if entry.html %}
+  <p>{{ entry.entry|nofilter_breakclean|nofilter_newlines|safe }}</p>
+{% else %}
+  <p>{{ entry.entry|nofilter_breakclean|escape|nofilter_newlines|safe }}</p>
+{% endif %}

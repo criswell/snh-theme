@@ -2,36 +2,35 @@
 <title>{{ state.site_name }}</title>
 {% include "head2.html" %}
 
-<div class='well' id='mainWell'>
-  {% for entry in entries %}
-  <div class='well'>
-    <div class="row">
-      <div class="col-md-8">
-        <a href="{{ nomacro_entryURL(entry) }}"><h1>{{ entry.title }}</h1></a>
-      </div>
-      <div class="col-md-4"><small>
-          <p class="text-left">{{ entry.author.fullname }}</p>
-          <p class="muted test-right">{{ entry.date }}</p>
-      </small></div>
-    </div><div class="row">
-      {% if entry.html -%}
-      <p>{{ entry.entry|nofilter_breaksplit|first|nofilter_newlines|safe }}</p>
-      {%- else -%}
-      <p>{{ entry.entry|nofilter_breaksplit|first|escape|nofilter_newlines|safe }}</p>
-      {%- endif %}
-      <a href="{{ nomacro_entryURL(entry) }}">more...</a>
-  </div></div>
-  {% endfor %}
-  {% if total_pages > 0 %}
-  <ul class="pagination">
-    {% for i in range(total_pages) %}
-    {% if page_num == i %}
-    <li class="active"><a href="#">{{ i+1 }}</a></li>
-    {% else %}
-    <li><a href="{{ request.path }}?page={{ i }}">{{ i+1 }}</a></li>
-    {% endif %}
-    {% endfor %}
-  </ul>
+{% for entry in entries %}
+<div class='well'
+  {% if loop.index == 0 %}id='mainWell'{% endif %}>
+  <div class="row">
+    <div class="col-md-8">
+      <a href="{{ nomacro_entryURL(entry) }}"><h1>{{ entry.title }}</h1></a>
+    </div>
+    <div class="col-md-4"><small>
+        <p class="text-left">{{ entry.author.fullname }}</p>
+        <p class="muted test-right">{{ entry.date }}</p>
+    </small></div>
+  </div><div class="row">
+    {% if entry.html -%}
+    <p>{{ entry.entry|nofilter_breaksplit|first|nofilter_newlines|safe }}</p>
+    {%- else -%}
+    <p>{{ entry.entry|nofilter_breaksplit|first|escape|nofilter_newlines|safe }}</p>
+    {%- endif %}
+    <a href="{{ nomacro_entryURL(entry) }}">more...</a>
+</div></div>
+{% endfor %}
+{% if total_pages > 0 %}
+<ul class="pagination">
+  {% for i in range(total_pages) %}
+  {% if page_num == i %}
+  <li class="active"><a href="#">{{ i+1 }}</a></li>
+  {% else %}
+  <li><a href="{{ request.path }}?page={{ i }}">{{ i+1 }}</a></li>
   {% endif %}
-</div>
+  {% endfor %}
+</ul>
+{% endif %}
 {% include "foot.html" %}

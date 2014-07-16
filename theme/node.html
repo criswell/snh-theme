@@ -1,39 +1,28 @@
+{% include "head1.html" %}
 {% from "macros.html" import nomacro_tagURL %}
 {% from "macros.html" import nomacro_entryURL %}
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-
-  <head>
-    <title>{{ entry.title }} | {{ state.site_name }}</title>
-    {% include "common_header.html" %}
-  </head>
-  <body>
-    {% include "page_head.html" %}
-    <div class='container'>
-      <div class='well'>
-        {% include "entry_embed.html" %}
-      </div>
-      {% if children|length > 0  %}
-      <ul>
-      {% for child in children %}
-      {% if child.id == entry.id %}
-        <li><h4>{{ child.title }}</h4></li>
-      {% else %}
-        <li><a href="{{ nomacro_entryURL(child) }}"><h4>{{ child.title }}</h4></a></li>
-      {% endif %}
-      {% endfor %}
-      </ul>
-      {% endif %}
-      <p class='text-right'>
-      {% if entry.tagmap|length > 0 %}
-        <strong>Tags:</strong>
-        {% for tm in entry.tagmap %}
-        <a href="{{ nomacro_tagURL(tm.tag) }}" class="btn btn-info">{{ tm.tag.tag }}</a>
-        {% endfor %}
-      {% endif %}
-      </p>
-    </div>
-  </body>
-</html>
-
+<title>{{ entry.title }} | {{ state.site_name }}</title>
+{% include "head2.html" %}
+<div class='well' id='mainWell'>
+  {% include "entry_embed.html" %}
+</div>
+{% if children|length > 0  %}
+<ul>
+  {% for child in children %}
+  {% if child.id == entry.id %}
+  <li><h4>{{ child.title }}</h4></li>
+  {% else %}
+  <li><a href="{{ nomacro_entryURL(child) }}"><h4>{{ child.title }}</h4></a></li>
+  {% endif %}
+  {% endfor %}
+</ul>
+{% endif %}
+<p class='text-right'>
+{% if entry.tagmap|length > 0 %}
+<strong>Tags:</strong>
+{% for tm in entry.tagmap %}
+<a href="{{ nomacro_tagURL(tm.tag) }}" class="btn btn-info">{{ tm.tag.tag }}</a>
+{% endfor %}
+{% endif %}
+</p>
+{% include "foot.html" %}

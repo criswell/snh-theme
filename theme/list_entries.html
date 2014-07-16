@@ -1,7 +1,8 @@
 {% include "head1.html" %}
 <title>{{ state.site_name }}</title>
 {% include "head2.html" %}
-
+{% from "macros.html" import nomacro_tagURL %}
+{% from "macros.html" import nomacro_entryURL %}
 {% for entry in entries %}
 <div class='well'
   {% if loop.index == 0 %}id='mainWell'{% endif %}>

@@ -4,7 +4,7 @@
 {% from "macros.html" import nomacro_tagURL %}
 {% from "macros.html" import nomacro_entryURL %}
 {% for entry in entries %}
-<div class='well'
+<div class='well' foo="{{ loop.index }}"
   {% if loop.index == 0 %}id='mainWell'{% endif %}>
   <div class="row">
     <div class="col-md-8">

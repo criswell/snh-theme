@@ -75,7 +75,7 @@ a:hover {
           <li><a href="http://criswell.bitbucket.org/">Resume</a></li>
           <li><a href="#">Admin</a></li>
           {% if not state.icebox %}
-          <li>|</li>
+          <li><p class="navbar-text">|</p></li>
           {% if state.current_user.is_anonymous %}
           <li><a href="/login">Login</a></li>
           {% else %}

@@ -76,7 +76,7 @@ a:hover {
           <li><a href="#">Admin</a></li>
           {% if not state.icebox %}
           <li><p class="navbar-text">|</p></li>
-          {% if state.current_user.is_anonymous %}
+          {% if state.current_user.is_anonymous() %}
           <li><a href="/login">Login</a></li>
           {% else %}
           <li><a href="/admin">Admin</a></li>
